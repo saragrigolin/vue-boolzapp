@@ -28,16 +28,18 @@ body {
 
 .container .left-col {
     width: 35%;
+    border-right: 1px solid rgb(172, 172, 172);
 }
 
 .container .header-left-col {
     background-color: #EAEAEA;
     justify-content: space-between;
+    height: 75px;
 }
 
 .container .header-user {
-    height: 75px;
     align-items: center;
+    padding-left: 1em;
 }
 
 .container .header-left-col .header-user img {
@@ -61,4 +63,43 @@ body {
 
 .container .header-icons {
     align-items: center;
+}
+
+.container .notify-left-col {
+    background-color: #8EDAFC;
+    height: 80px;
+    align-items: center;
+}
+
+.container .notify-left-col .notify-logo {
+    margin-left: 1.5em;
+    height: 50px;
+    width: 50px;
+    background-color: white;
+    border-radius: 100%;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.container .notify-left-col i {
+    font-size: 1.2em;
+    color: #8EDAFC;
+}
+
+.container .notify-left-col .notify-msg {
+    padding-left: 0.5em;
+    flex-direction: column;
+}
+
+.container .notify-left-col .notify-msg .msg-header {
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.container .notify-left-col .notify-msg .msg {
+    font-size: 0.8em;
+    text-decoration: underline;
+    color: rgb(107, 107, 107);
+    cursor: pointer;
 }
