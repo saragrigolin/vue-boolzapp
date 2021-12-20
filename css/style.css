@@ -135,3 +135,47 @@ body {
 .container .search-left-col .input-search::placeholder {
     color: rgb(187, 187, 187);
 }
+
+.container .contact-list {
+    background-color: #FFFFFF;
+    height: calc(100% - 75px - 80px - 50px);
+    overflow-y: auto;
+}
+
+.container .contact {
+    height: 70px;
+    align-items: center;
+    padding-left: 1em;
+    border-bottom: 1px solid #EAEAEA;
+}
+
+.container .contact:last-child {
+    border-bottom: 0;
+}
+
+.container .contact img {
+    height: 60px;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.container .contact .contact-info {
+    flex-direction: column;
+    width: 100%;
+    padding: 0 0.8em;
+}
+
+.container .contact .contact-info .contact-namedata {
+    justify-content: space-between;
+}
+
+.container .contact .contact-info span.name {
+    font-size: 1em;
+    color: black;
+}
+
+.container .contact .contact-info span {
+    font-size: 0.7em;
+    color: #B1B1B1;
+}
+
