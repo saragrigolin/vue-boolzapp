@@ -46,59 +46,17 @@
                 <input type="text" placeholder="Cerca o inizia una nuova chat" name="search" class="input-search">
             </div>
             <div class="contact-list">
-                <div class="contact active d-flex">
+                <div v-for="(contact, index) in contacts" class="contact d-flex">
                     <div class="contact-logo d-flex">
-                        <img src="img/avatar_1.jpg" alt="">
+                        <img :src="`img/avatar${contact.avatar}.jpg`" alt="">
                     </div>
                     <div class="contact-info d-flex">
                         <div class="contact-namedata d-flex">
-                            <span class="name">Michele</span>
-                            <span>20/12/2021 10:22:21</span>
+                            <span class="name">{{contact.name}}</span>
+                            <span>{{contact.messages[2].date}}</span>
                         </div>
                         <div class="contact-msg">
-                            <span>ok ...</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact d-flex">
-                    <div class="contact-logo d-flex">
-                        <img src="img/avatar_2.jpg" alt="">
-                    </div>
-                    <div class="contact-info d-flex">
-                        <div class="contact-namedata d-flex">
-                            <span class="name">Fabio</span>
-                            <span>20/12/2021 10:22:21</span>
-                        </div>
-                        <div class="contact-msg">
-                            <span>Mi piacerebbe ma devo andare a ...</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact d-flex">
-                    <div class="contact-logo d-flex">
-                        <img src="img/avatar_3.jpg" alt="">
-                    </div>
-                    <div class="contact-info d-flex">
-                        <div class="contact-namedata d-flex">
-                            <span class="name">Samuele</span>
-                            <span>20/12/2021 10:22:21</span>
-                        </div>
-                        <div class="contact-msg">
-                            <span>Ah scusa! ...</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact d-flex">
-                    <div class="contact-logo d-flex">
-                        <img src="img/avatar_4.jpg" alt="">
-                    </div>
-                    <div class="contact-info d-flex">
-                        <div class="contact-namedata d-flex">
-                            <span class="name">Giacomo</span>
-                            <span>20/12/2021 10:22:21</span>
-                        </div>
-                        <div class="contact-msg">
-                            <span>Si, ma preferirei andare al ci ...</span>
+                            <span>{{contact.messages[2].text}}</span>
                         </div>
                     </div>
                 </div>
@@ -120,17 +78,9 @@
                 </div>
             </div>
             <div class="main-content d-flex">
-                <div class="message received d-flex">
-                    <span class="text-message">Cosa mangiamo per cena?</span>
-                    <span class="date-message">20/12/2021 10:00:05</span>
-                </div>
-                <div class="message sent d-flex">
-                    <span class="text-message">Va bene pizza?</span>
-                    <span class="date-message">20/12/2021 10:30:05</span>
-                </div>
-                <div class="message received d-flex">
-                    <span class="text-message">ok</span>
-                    <span class="date-message">20/12/2021 11:00:05</span>
+                <div v-for="(message, index) in contacts[0].messages" class="message d-flex" :class="(message.status == 'sent') ? 'sent' : 'received'">
+                    <span class="text-message">{{message.text}}</span>
+                    <span class="date-message">{{message.date}}</span>
                 </div>
             </div>
             <div class="bottom-container d-flex">
