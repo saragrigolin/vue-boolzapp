@@ -3,3 +3,38 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+html {
+    font-size: 100%;
+    font-family: 'Lato', sans-serif;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(#249687 0px,#249687 15vh,#DADBD4 15vh, #DADBD4 100%);
+    overflow: hidden;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.container {
+    margin: auto;
+    width: 80%;
+    height: 95%;
+}
+
+.container .left-col {
+    width: 35%;
+}
+
+.container .header-left-col {
+    height: 75px;
+    align-items: center;
+}
+
+.container .header-left-col .header-user img {
+    height: 60px;
+}
