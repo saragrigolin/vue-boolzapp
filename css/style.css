@@ -31,10 +31,34 @@ body {
 }
 
 .container .header-left-col {
+    background-color: #EAEAEA;
+    justify-content: space-between;
+}
+
+.container .header-user {
     height: 75px;
     align-items: center;
 }
 
 .container .header-left-col .header-user img {
     height: 60px;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.container .header-left-col .header-user h2 {
+    font-size: 0.9em;
+    padding-left: 0.5em;
+    cursor: pointer;
+}
+
+.container .header-left-col i {
+    color: #B1B1B1;
+    padding-right: 1em;
+    font-size: 1.3em;
+    cursor: pointer;
+}
+
+.container .header-icons {
+    align-items: center;
 }
