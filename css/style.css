@@ -103,3 +103,35 @@ body {
     color: rgb(107, 107, 107);
     cursor: pointer;
 }
+
+.container .search-left-col {
+    height: 50px;
+    background-color: #F7F7F7;
+    align-items: center;
+    padding: 0.5em;
+}
+
+.container .search-left-col .label-search {
+    width: 10%;
+    height: 100%;
+    background-color: white;
+    border: 1px solid rgb(209, 209, 209);
+    border-right: 0;
+    align-items: center;
+    padding-left: 1em;
+    color: rgb(187, 187, 187);
+}
+
+.container .search-left-col .input-search {
+    width: 90%;
+    height: 100%;
+    background-color: white;
+    border: 1px solid rgb(209, 209, 209);
+    border-left: 0;
+    outline: none;
+    padding-left: 1em;
+}
+
+.container .search-left-col .input-search::placeholder {
+    color: rgb(187, 187, 187);
+}
