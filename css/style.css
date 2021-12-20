@@ -159,6 +159,7 @@ body {
     align-items: center;
     padding-left: 1em;
     border-bottom: 1px solid #EAEAEA;
+    cursor: pointer;
 }
 
 .container .contact.active {
@@ -224,7 +225,7 @@ body {
 
 .right-col .main-content {
     background-image: url(../img/mine.jpg);
-    height: calc(100% - 75px);
+    height: calc(100% - 75px - 75px);
     width: 100%;
     padding: 2em 10%;
     overflow-y: auto;
@@ -259,4 +260,31 @@ body {
     color: #B1B1B1;
     align-self: flex-end;
     padding: 0 0.5em 0.5em 0;
+}
+
+/* Bottom right column */
+
+.bottom-container {
+    align-items: center;
+    height: 75px;
+    background-color: #F3EEEA;
+}
+
+.bottom-container i {
+    font-size: 1.5em;
+    color: #6B7376;
+    padding: 0 1em;
+    cursor: pointer;
+}
+
+.bottom-container .input-message {
+    border: 0;
+    outline: none;
+    width: 100%;
+    padding: 1em 1em;
+    border-radius: 0.5em;
+}
+
+.bottom-container .input-message::placeholder{
+    color: #6B7376;
 }
