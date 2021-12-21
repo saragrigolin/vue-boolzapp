@@ -53,7 +53,6 @@ const app = new Vue (
                         }
                     ],
                 },
-
                 {
                     name: "Samuele",
                     avatar: "_3",
@@ -90,15 +89,30 @@ const app = new Vue (
                             date: "10/01/2020 15:50:00",
                             text: "Si, ma preferirei andare al cinema",
                             status: "received",
-                        },
-                        {
-                            date: "10/01/2020 15:50:00",
-                            text: "Si, ma preferirei andare al cinema",
-                            status: "received",
                         }
                     ],
                 },
-            ]
+            ],
+            counter: 0
+        },
+        methods: {
+            getLastDate: function (index) {
+                //prendo la data dell'ultimo messaggio
+                let lastMessage = this.contacts[index].messages.length - 1;
+                let lastMessageDate = this.contacts[index].messages[lastMessage].date;
+                return lastMessageDate;
+            },
+            getLastMsg: function (index) {
+                //prendo il testo dell'ultimo messaggio
+                let lastMessage = this.contacts[index].messages.length - 1;
+                let lastMessageText = this.contacts[index].messages[lastMessage].text;
+                
+                //mostro "..." se messaggio lungo
+                if (lastMessageText.length > 25){
+                    lastMessageText = lastMessageText + ' ...';
+                }
+                return lastMessageText;
+            }
         }
     }
 )
