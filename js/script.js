@@ -131,11 +131,11 @@ const app = new Vue (
             },
             searchChat: function () {
                 //se il nome che cerco è presente nella lista delle chat
-                this.contacts.forEach((element) => {
-                    if (element.name.toLowerCase().includes(this.searchText.toLowerCase())) {
-                        element.visible = true;
+                this.contacts.forEach((contact) => {
+                    if (contact.name.toLowerCase().includes(this.searchText.toLowerCase())) {
+                        contact.visible = true;
                     } else {
-                        element.visible = false;
+                        contact.visible = false;
                     }
                 });
             }
