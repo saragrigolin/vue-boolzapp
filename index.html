@@ -43,10 +43,10 @@
                 <label for="search" class="label-search d-flex">
                     <i class="fa fa-search"></i>
                 </label>
-                <input type="text" placeholder="Cerca o inizia una nuova chat" name="search" class="input-search">
+                <input v-model="searchText" @keyup="searchChat" type="text" placeholder="Cerca o inizia una nuova chat" name="search" class="input-search">
             </div>
             <div class="contact-list">
-                <div @click="getActiveChat(index)" v-for="(contact, index) in contacts" class="contact d-flex" :class="(counter == index) ? 'active' : ''">
+                <div @click="getActiveChat(index)" v-for="(contact, index) in contacts" class="contact d-flex" :class="(counter == index) ? 'active' : ''" v-if="contact.visible">
                     <div class="contact-logo d-flex">
                         <img :src="`img/avatar${contact.avatar}.jpg`" :alt="contact.name">
                     </div>
@@ -68,7 +68,7 @@
                     <img :src="`img/avatar${contacts[counter].avatar}.jpg`" alt="">
                     <div class="info d-flex">
                         <span class="name">{{contacts[counter].name}}</span>
-                        <span>Ultimo accesso oggi alle {{getLastDate(counter)}}</span>
+                        <span>Ultimo accesso oggi alle {{lastReceivedMsg(contacts[counter].messages).date}}</span>
                     </div>
                 </div>
                 <div class="header-icons d-flex">

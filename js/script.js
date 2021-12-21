@@ -80,8 +80,8 @@ const app = new Vue (
                     ],
                 },
                 {
-                    name: "Giacomo",
-                    avatar: "_4",
+                    name: "Luisa",
+                    avatar: "_6",
                     visible: true,
                     messages: [
                         {
@@ -121,6 +121,24 @@ const app = new Vue (
             getActiveChat: function (index) {
                 this.counter = index;
             },
+            lastReceivedMsg: function (messages) {
+                //prendo l'ultimo messaggio ricevuto per visualizzare l'ultimo accesso
+                let receivedMsg = messages.filter((message) => {
+                    return message.status == "received";
+                });
+                let length = receivedMsg.length - 1;
+                return receivedMsg[length];
+            },
+            searchChat: function () {
+                //se il nome che cerco è presente nella lista delle chat
+                this.contacts.forEach((element) => {
+                    if (element.name.toLowerCase().includes(this.searchText.toLowerCase())) {
+                        element.visible = true;
+                    } else {
+                        element.visible = false;
+                    }
+                });
+            }
         }
     }
 )
