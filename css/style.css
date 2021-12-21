@@ -14,6 +14,7 @@ body {
     width: 100%;
     background-image: linear-gradient(#249687 0px,#249687 15vh,#DADBD4 15vh, #DADBD4 100%);
     overflow: hidden;
+    min-width: 1200px;
 }
 
 .container {
@@ -164,6 +165,10 @@ body {
 
 .container .contact.active {
     background-color: #EAEAEA;
+}
+
+.container .contact:hover {
+    background-color: #f0f0f0;
 }
 
 .container .contact:last-child {
