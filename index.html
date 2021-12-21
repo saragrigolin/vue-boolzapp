@@ -46,7 +46,7 @@
                 <input type="text" placeholder="Cerca o inizia una nuova chat" name="search" class="input-search">
             </div>
             <div class="contact-list">
-                <div @click="counter = index" v-for="(contact, index) in contacts" class="contact d-flex" :class="(counter == index) ? 'active' : ''">
+                <div @click="getActiveChat(index)" v-for="(contact, index) in contacts" class="contact d-flex" :class="(counter == index) ? 'active' : ''">
                     <div class="contact-logo d-flex">
                         <img :src="`img/avatar${contact.avatar}.jpg`" :alt="contact.name">
                     </div>

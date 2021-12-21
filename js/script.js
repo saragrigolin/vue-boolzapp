@@ -112,7 +112,10 @@ const app = new Vue (
                     lastMessageText = lastMessageText + ' ...';
                 }
                 return lastMessageText;
-            }
+            },
+            getActiveChat: function (index) {
+                this.counter = index;
+            },
         }
     }
 )
