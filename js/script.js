@@ -142,21 +142,31 @@ const app = new Vue (
             },
             sendMsg: function () {
                 let messagesArray = this.contacts[this.counter].messages;
-                messagesArray.push({
-                    text: this.newMessage,
-                    date: moment().format('DD MM YYYY HH:mm'),
-                    status: "sent"
-                });
-                this.newMessage = '';
-                setTimeout(() => {
+
+                //data corrente
+                dayjs.extend(window.dayjs_plugin_customParseFormat);
+                let data = dayjs().format("D/M/YYYY HH:mm");
+
+                //se il messaggio inserito non è vuoto
+                if (this.newMessage != ' ' && this.newMessage.length != 0){
                     messagesArray.push({
-                        text: "Ok",
-                        date: moment().format('DD MM YYYY HH:mm'),
-                        status: "received"
-                    })
-                }, 1000);
+                        text: this.newMessage,
+                        date: data,
+                        status: "sent"
+                    });
+
+                    //timer per risposta
+                    setTimeout(() => {
+                        messagesArray.push({
+                            text: "Ok",
+                            date: data,
+                            status: "received"
+                        });
+                    }, 1000);
+                };
+                this.newMessage = '';
             }
-        }
+        },
     }
 )
 
