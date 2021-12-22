@@ -100,6 +100,10 @@ const app = new Vue (
             counter: 0,
             searchText: '',
             newMessage: '',
+            activeMessage: {
+                index: false,
+                show: false
+            }
         },
         methods: {
             getLastDate: function (index) {
@@ -165,6 +169,24 @@ const app = new Vue (
                     }, 1000);
                 };
                 this.newMessage = '';
+            },
+            showMenu: function (index) {
+                //funzione per mostrare il menu del messaggio
+                if (this.activeMessage.index !== index && this.activeMessage.index !== false){
+                    this.activeMessage.show = false;
+                    this.activeMessage.index = false;
+                }
+                this.activeMessage.show = !this.activeMessage.show;
+                this.activeMessage.index = index;
+            },
+            rmvMessage: function (index) {
+                // prendo l'array dei messaggi e tolgo quello selezionato
+                let messagesArray = this.contacts[this.counter].messages;
+                messagesArray.splice(index, 1);
+
+                // nascondo il menu
+                this.activeMessage.show = false;
+                this.activeMessage.index = false;
             }
         },
     }

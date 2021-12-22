@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
     <script src="https://unpkg.com/dayjs@1.8.21/plugin/utc.js"></script>
     <script src="https://unpkg.com/dayjs@1.8.20/plugin/customParseFormat.js"></script>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -51,17 +51,19 @@
                 <input v-model="searchText" @keyup="searchChat" type="text" placeholder="Cerca o inizia una nuova chat" name="search" class="input-search">
             </div>
             <div class="contact-list">
-                <div @click="getActiveChat(index)" v-for="(contact, index) in contacts" class="contact d-flex" :class="(counter == index) ? 'active' : ''" v-if="contact.visible">
-                    <div class="contact-logo d-flex">
-                        <img :src="`img/avatar${contact.avatar}.jpg`" :alt="contact.name">
-                    </div>
-                    <div class="contact-info d-flex">
-                        <div class="contact-namedata d-flex">
-                            <span class="name">{{contact.name}}</span>
-                            <span>{{getLastDate(index)}}</span>
+                <div @click="getActiveChat(index)" v-for="(contact, index) in contacts">
+                    <div v-if="contact.visible" class="contact d-flex" :class="(counter == index) ? 'active' : ''">
+                        <div class="contact-logo d-flex">
+                            <img :src="`img/avatar${contact.avatar}.jpg`" :alt="contact.name">
                         </div>
-                        <div class="contact-msg">
-                            <span>{{getLastMsg(index)}}</span>
+                        <div class="contact-info d-flex">
+                            <div class="contact-namedata d-flex">
+                                <span class="name">{{contact.name}}</span>
+                                <span>{{getLastDate(index)}}</span>
+                            </div>
+                            <div class="contact-msg">
+                                <span>{{getLastMsg(index)}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,6 +88,11 @@
                 <div v-for="(message, index) in contacts[counter].messages" class="message d-flex" :class="(message.status == 'sent') ? 'sent' : 'received'">
                     <span class="text-message">{{message.text}}</span>
                     <span class="date-message">{{message.date}}</span>
+                    <i class="fas fa-chevron-down" @click="showMenu(index)"></i>
+                    <div class="message-options" v-if="activeMessage.show == true && activeMessage.index == index">
+                        <div class="message-info">Info messaggio</div>
+                        <div class="message-delete" @click="rmvMessage(index)">Cancella messaggio</div>
+                    </div>
                 </div>
             </div>
             <div class="bottom-container d-flex">
