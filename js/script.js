@@ -152,7 +152,7 @@ const app = new Vue (
                 let data = dayjs().format("D/M/YYYY HH:mm");
 
                 //se il messaggio inserito non è vuoto
-                if (this.newMessage != ' ' && this.newMessage.length != 0){
+                if (this.newMessage.trim() != ""){
                     messagesArray.push({
                         text: this.newMessage,
                         date: data,

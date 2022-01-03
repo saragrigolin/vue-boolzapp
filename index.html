@@ -98,7 +98,8 @@
             <div class="bottom-container d-flex">
                 <i class="far fa-smile"></i>
                 <input class="input-message" type="text" placeholder="Scrivi un messaggio" v-model="newMessage" @keyup.enter="sendMsg">
-                <i class="fas fa-microphone"></i>
+                <i v-if="newMessage.trim() == ''" class="fas fa-microphone"></i>
+                <i v-else @click="sendMsg" class="fas fa-paper-plane"></i>
             </div>
         </div>
     </div>
