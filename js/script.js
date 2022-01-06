@@ -103,7 +103,10 @@ const app = new Vue (
             activeMessage: {
                 index: false,
                 show: false
-            }
+            },
+            answers: [
+                'Ciao', 'Può essere', 'Non saprei', 'Certo!', 'Ovviamente',
+            ]
         },
         methods: {
             getLastDate: function (index) {
@@ -149,7 +152,7 @@ const app = new Vue (
 
                 //data corrente
                 dayjs.extend(window.dayjs_plugin_customParseFormat);
-                let data = dayjs().format("D/M/YYYY HH:mm");
+                let data = dayjs().format("D/M/YYYY HH:mm"); 
 
                 //se il messaggio inserito non è vuoto
                 if (this.newMessage.trim() != ""){
@@ -161,8 +164,10 @@ const app = new Vue (
 
                     //timer per risposta
                     setTimeout(() => {
+                        //numero random per risposta
+                        let randomNum = this.rndNum(0, (this.answers.length - 1));
                         messagesArray.push({
-                            text: "Ok",
+                            text: this.answers[randomNum],
                             date: data,
                             status: "received"
                         });
@@ -187,6 +192,10 @@ const app = new Vue (
                 // nascondo il menu
                 this.activeMessage.show = false;
                 this.activeMessage.index = false;
+            },
+            rndNum: function (min, max) {
+                //funzione per prendere una risposta random dall'array risposte
+                return Math.floor(Math.random() * (max - min + 1)) + min;
             }
         },
     }
