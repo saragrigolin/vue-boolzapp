@@ -17,6 +17,7 @@ const app = new Vue (
                     name: "Michele",
                     avatar: "_1",
                     visible: true,
+                    lastAccess: null,
                     messages: [
                         {
                             date: "10/01/2020 15:30",
@@ -39,6 +40,7 @@ const app = new Vue (
                     name: "Fabio",
                     avatar: "_2",
                     visible: true,
+                    lastAccess: null,
                     messages: [
                         {
                             date: "20/03/2020 16:30",
@@ -61,6 +63,7 @@ const app = new Vue (
                     name: "Samuele",
                     avatar: "_3",
                     visible: true,
+                    lastAccess: null,
                     messages: [
                         {
                             date: "28/03/2020 10:10",
@@ -83,6 +86,7 @@ const app = new Vue (
                     name: "Luisa",
                     avatar: "_6",
                     visible: true,
+                    lastAccess: null,
                     messages: [
                         {
                             date: "10/01/2020 15:30",
@@ -108,34 +112,43 @@ const app = new Vue (
                 'Ciao', 'Può essere', 'Non saprei', 'Certo!', 'Ovviamente',
             ]
         },
+        created() {
+            this.getLastAccess();
+        },
         methods: {
             getLastDate: function (index) {
                 //prendo la data dell'ultimo messaggio
-                let lastMessage = this.contacts[index].messages.length - 1;
-                let lastMessageDate = this.contacts[index].messages[lastMessage].date;
-                return lastMessageDate;
+                if (this.contacts[index].messages.length > 0) {
+                    let lastMessage = this.contacts[index].messages.length - 1;
+                    let lastMessageDate = this.contacts[index].messages[lastMessage].date;
+                    return lastMessageDate;
+                }
             },
             getLastMsg: function (index) {
                 //prendo il testo dell'ultimo messaggio
-                let lastMessage = this.contacts[index].messages.length - 1;
-                let lastMessageText = this.contacts[index].messages[lastMessage].text;
-                
-                //mostro "..." se messaggio lungo
-                if (lastMessageText.length > 25){
-                    lastMessageText = lastMessageText + ' ...';
+                if (this.contacts[index].messages.length > 0) {
+                    let lastMessage = this.contacts[index].messages.length - 1;
+                    let lastMessageText = this.contacts[index].messages[lastMessage].text;
+                    
+                    //mostro "..." se messaggio lungo
+                    if (lastMessageText.length > 25){
+                        lastMessageText = lastMessageText + ' ...';
+                    }
+                    return lastMessageText;
                 }
-                return lastMessageText;
             },
             getActiveChat: function (index) {
                 this.counter = index;
             },
-            lastReceivedMsg: function (messages) {
-                //prendo l'ultimo messaggio ricevuto per visualizzare l'ultimo accesso
-                let receivedMsg = messages.filter((message) => {
-                    return message.status == "received";
-                });
-                let length = receivedMsg.length - 1;
-                return receivedMsg[length];
+            getLastAccess: function () {
+                //per ogni contatto e ogni messaggio prendo la data del messaggio ricevuto
+                this.contacts.forEach((contact) => {
+                    contact.messages.forEach((message) => {
+                        if (message.status == 'received') {
+                            contact.lastAccess = `Ultimo accesso: ${message.date}`;
+                        }
+                    })
+                })
             },
             searchChat: function () {
                 //se il nome che cerco è presente nella lista delle chat
@@ -149,7 +162,6 @@ const app = new Vue (
             },
             sendMsg: function () {
                 let messagesArray = this.contacts[this.counter].messages;
-
                 //data corrente
                 dayjs.extend(window.dayjs_plugin_customParseFormat);
                 let data = dayjs().format("D/M/YYYY HH:mm"); 
@@ -164,13 +176,30 @@ const app = new Vue (
 
                     //timer per risposta
                     setTimeout(() => {
-                        //numero random per risposta
-                        let randomNum = this.rndNum(0, (this.answers.length - 1));
-                        messagesArray.push({
-                            text: this.answers[randomNum],
-                            date: data,
-                            status: "received"
-                        });
+                        //status online
+                        this.contacts[this.counter].lastAccess = 'Online';
+                        setTimeout(() => {
+                            //status sta scrivendo
+                            this.contacts[this.counter].lastAccess = 'Sta scrivendo..'
+                            setTimeout(() => {
+                                //numero random per risposta
+                                let randomNum = this.rndNum(0, (this.answers.length - 1));
+                                //nuova data per la risposta
+                                let dataNew = dayjs().format("D/M/YYYY HH:mm");
+                                messagesArray.push({
+                                    text: this.answers[randomNum],
+                                    date: dataNew,
+                                    status: "received"
+                                });
+                                //status online
+                                this.contacts[this.counter].lastAccess = 'Online';
+                                setTimeout(() => {
+                                    //cambio ultimo accesso
+                                    this.contacts[this.counter].lastAccess = `Ultimo accesso: ${messagesArray[messagesArray.length - 1].date}`;
+                                    
+                                }, 1000);
+                            }, 1000);
+                        }, 1000);
                     }, 1000);
                 };
                 this.newMessage = '';
