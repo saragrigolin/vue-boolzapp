@@ -23,16 +23,19 @@ const app = new Vue (
                             date: "10/01/2020 15:30",
                             text: "Hai portato a spasso il cane?",
                             status: "sent",
+                            toggle: false,
                         },
                         {
                             date: "10/01/2020 15:50",
                             text: "Ricordati di dargli da mangiare",
                             status: "sent",
+                            toggle: false,
                         },
                         {
                             date: "10/01/2020 16:15",
                             text: "Tutto fatto!",
                             status: "received",
+                            toggle: false,
                         }
                     ],
                 },
@@ -46,16 +49,19 @@ const app = new Vue (
                             date: "20/03/2020 16:30",
                             text: "Ciao come stai?",
                             status: "sent",
+                            toggle: false,
                         },
                         {
                             date: "20/03/2020 16:30",
                             text: "Bene grazie! Stasera ci vediamo?",
                             status: "received",
+                            toggle: false,
                         },
                         {
                             date: "20/03/2020 16:35",
                             text: "Mi piacerebbe ma devo andare a fare la spesa.",
                             status: "sent",
+                            toggle: false,
                         }
                     ],
                 },
@@ -69,16 +75,19 @@ const app = new Vue (
                             date: "28/03/2020 10:10",
                             text: "La Marianna va in campagna",
                             status: "received",
+                            toggle: false,
                         },
                         {
                             date: "28/03/2020 10:20",
                             text: "Sicuro di non aver sbagliato chat?",
                             status: "sent",
+                            toggle: false,
                         },
                         {
                             date: "28/03/2020 16:15",
                             text: "Ah scusa!",
                             status: "received",
+                            toggle: false,
                         }
                     ],
                 },
@@ -92,22 +101,21 @@ const app = new Vue (
                             date: "10/01/2020 15:30",
                             text: "Lo sai che ha aperto una nuova pizzeria?",
                             status: "sent",
+                            toggle: false,
                         },
                         {
                             date: "10/01/2020 15:50",
                             text: "Si, ma preferirei andare al cinema",
                             status: "received",
+                            toggle: false,
                         }
                     ],
                 },
             ],
-            counter: 0,
+            counter: null,
             searchText: '',
             newMessage: '',
-            activeMessage: {
-                index: false,
-                show: false
-            },
+            menu: false,
             answers: [
                 'Ciao', 'Può essere', 'Non saprei', 'Certo!', 'Ovviamente',
             ]
@@ -171,7 +179,8 @@ const app = new Vue (
                     messagesArray.push({
                         text: this.newMessage,
                         date: data,
-                        status: "sent"
+                        status: "sent",
+                        toggle: false,
                     });
 
                     //timer per risposta
@@ -189,14 +198,14 @@ const app = new Vue (
                                 messagesArray.push({
                                     text: this.answers[randomNum],
                                     date: dataNew,
-                                    status: "received"
+                                    status: "received",
+                                    toggle: false,
                                 });
                                 //status online
                                 this.contacts[this.counter].lastAccess = 'Online';
                                 setTimeout(() => {
                                     //cambio ultimo accesso
                                     this.contacts[this.counter].lastAccess = `Ultimo accesso: ${messagesArray[messagesArray.length - 1].date}`;
-                                    
                                 }, 1000);
                             }, 1000);
                         }, 1000);
@@ -204,29 +213,27 @@ const app = new Vue (
                 };
                 this.newMessage = '';
             },
-            showMenu: function (index) {
-                //funzione per mostrare il menu del messaggio
-                if (this.activeMessage.index !== index && this.activeMessage.index !== false){
-                    this.activeMessage.show = false;
-                    this.activeMessage.index = false;
-                }
-                this.activeMessage.show = !this.activeMessage.show;
-                this.activeMessage.index = index;
-            },
             rmvMessage: function (index) {
                 // prendo l'array dei messaggi e tolgo quello selezionato
                 let messagesArray = this.contacts[this.counter].messages;
                 messagesArray.splice(index, 1);
-
-                // nascondo il menu
-                this.activeMessage.show = false;
-                this.activeMessage.index = false;
+            },
+            rmvMessages: function (counter) {
+                //svuoto l'array dei messaggi di quel contatto
+                this.menu = false;
+                this.contacts[counter].messages = [];
+                
+            },
+            rmvChat: function () {
+                //nascondo il contatto dalla lista e torno alla welcome screen
+                this.menu = false;
+                this.contacts[this.counter].visible = false;
+                this.counter = null;
             },
             rndNum: function (min, max) {
                 //funzione per prendere una risposta random dall'array risposte
                 return Math.floor(Math.random() * (max - min + 1)) + min;
-            }
+            },
         },
     }
 )
-

@@ -69,7 +69,7 @@
                 </div>
             </div>
         </div>
-        <div class="right-col">
+        <div class="right-col" v-if="counter != null">
             <div class="header d-flex">
                 <div class="header-user d-flex">
                     <img :src="`img/avatar${contacts[counter].avatar}.jpg`" alt="">
@@ -81,15 +81,19 @@
                 <div class="header-icons d-flex">
                     <i class="fas fa-search"></i>
                     <i class="fas fa-paperclip"></i>
-                    <i class="fas fa-ellipsis-v"></i>
+                    <i class="fas fa-ellipsis-v" @click="menu = !menu"></i>
+                    <div class="menu" v-show="menu">
+                        <div class="menu-options" @click="rmvMessages(counter)">Elimina messaggi</div>
+                        <div class="menu-options" @click="rmvChat()">Elimina chat</div>
+                    </div>
                 </div>
             </div>
             <div class="main-content d-flex">
                 <div v-for="(message, index) in contacts[counter].messages" class="message d-flex" :class="(message.status == 'sent') ? 'sent' : 'received'">
                     <span class="text-message">{{message.text}}</span>
                     <span class="date-message">{{message.date}}</span>
-                    <i class="fas fa-chevron-down" @click="showMenu(index)"></i>
-                    <div class="message-options" v-if="activeMessage.show == true && activeMessage.index == index">
+                    <i class="fas fa-chevron-down" @click="message.toggle = !message.toggle"></i>
+                    <div class="message-options" v-show="message.toggle">
                         <div class="message-info">Info messaggio</div>
                         <div class="message-delete" @click="rmvMessage(index)">Cancella messaggio</div>
                     </div>
@@ -100,6 +104,12 @@
                 <input class="input-message" type="text" placeholder="Scrivi un messaggio" v-model="newMessage" @keyup.enter="sendMsg">
                 <i v-if="newMessage.trim() == ''" class="fas fa-microphone"></i>
                 <i v-else @click="sendMsg" class="fas fa-paper-plane"></i>
+            </div>
+        </div>
+        <div v-else class="welcome right-col d-flex">
+            <div class="welcome-message d-flex">
+                <h2>Benvenuto!</h2>
+                <span>Seleziona una conversazione per visualizzare i messaggi</span>
             </div>
         </div>
     </div>
